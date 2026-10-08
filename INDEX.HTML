@@ -20,6 +20,7 @@
         justify-context: center;
         align-items: center;
         font-family: Arial, sans-serif;
+        gap:25px;
       } 
         
       .search {
@@ -66,11 +67,34 @@
      </style>
   </head>
   <body>
-    <input 
+    <input
+    id="search"
     class="search"
     type="text"
-    placeholder="Search..."
+    placeholder="Ask your question..."
+autocomplete="on"
     autofocus
     >
+<div id="response" class="ai-response"></div>
+<script>
+const search = document.getElementById("search");
+const=response=
+document.getElementById("response");
+search.addEvemtlistener("keydown",async function event) {if (event.key !==enter") return;
+const question = search.value.trim();
+in(!question) return;
+response.textContent = "thinking...";
+try {
+const result = await fetch ("/ask", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"},
+body:JSON.stringify({
+question: question});
+const data =await result.json();
+if (!result.ok) { throw new Error(data error|| "something went wrong.")}
+response.textContent = data.answer;}
+catch (error) { response.textContent = "I couldn't get a response. Make sure the AI is configured.";}});
+</script>
   </body>
 </html>
